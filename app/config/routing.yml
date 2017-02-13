@@ -1,0 +1,31 @@
+plataforma:
+    resource: "@PlataformaBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+
+principal:
+    path: /
+    defaults: { _controller: PlataformaBundle:Default:index }
+
+login:
+    path:     /login
+    defaults: { _controller: PlataformaBundle:Usuario:login }
+
+login_check:
+    path: /login_check
+logout:
+    path: /logout
+
+user_list:
+    path: /direccion/listado_usuarios 
+    defaults: { _controller: PlataformaBundle:Usuario:listuser }
+
+user_registration:
+    path:     /direccion/register
+    defaults: { _controller: PlataformaBundle:Usuario:register }
+
