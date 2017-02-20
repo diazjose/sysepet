@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
  *
  * @ORM\Table(name="usuarios")
  * @ORM\Entity(repositoryClass="PlataformaBundle\Repository\UsuariosRepository")
- * @UniqueEntity(fields="email", message="El Email ya fue tomado")
+ * @UniqueEntity(fields="email", message="El Email ya fue tomado por otro usuario, escoja otro Email por favor")
  * @UniqueEntity(fields="username", message="El Usuario ya fue tomado")
  */
 class Usuarios implements AdvancedUserInterface, \Serializable

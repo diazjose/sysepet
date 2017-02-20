@@ -64,6 +64,8 @@ class UsuarioController extends Controller
             $em->persist($user);
             $em->flush();
 
+            $this->addFlash('mensaje', 'Se ha Creado un Usuario Nuevo');
+
             // ... hacer cualquier otra cosa, como enviar un email, etc
             // establecer un mensaje "flash" de éxito para el usuario
 
@@ -80,15 +82,89 @@ class UsuarioController extends Controller
     /**
      * @Route("/direccion/listado_usuarios", name="user_list" )
      */
-    public function listuserAction()
+    public function listuserAction(Request $request)
     {
-         
+        /* 
      	$em = $this->getDoctrine()->getManager();
     	$users = $em->getRepository('PlataformaBundle:Usuarios')->findAll();
 
         return $this->render('PlataformaBundle:Plataforma:user_list.html.twig', array('users' => $users ));
+        */
+        $query = $request->get('query');
 
+        if (!empty($query)) {
+            /*
+            $finder = $this->container->get('fos_elastica.finder.app.user');
+            $user = $finder->createPaginatorAdapter($query);
+            */
+            $em = $this->getDoctrine()->getEntityManager();
+            $user = $em->getRepository('PlataformaBundle:Usuarios')->findByUsername($query);
+        }
+        else{
+            $em = $this->getDoctrine()->getEntityManager();
+            $dql = "SELECT e FROM PlataformaBundle:Usuarios e";
+            $user = $em->createQuery($dql);    
+        }
+        
+ 
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($user, $request->query->getInt('page', 1), 3);
+ 
+        return $this->render('PlataformaBundle:Plataforma:user_list.html.twig',
+                array('pagination' => $pagination));
     	
+    }
+
+    /**
+     * @Route("/direccion/update/{id}", name="update_user")
+     */
+    public function updateAction(Request $request, $id)
+    {
+        $user = $this->getDoctrine()->getRepository('PlataformaBundle:Usuarios')->find($id);
+     
+        if(!$user)
+        {
+            return $this->redirectToRoute('user_list');
+        }
+     
+        $form = $this->createForm(\PlataformaBundle\Form\UsuariosType::class, $user);
+        //$form->add('Guarda', SubmitType::class, array('label' => 'Update Post'));
+     
+        $form->handleRequest($request);
+     
+        if ($form->isSubmitted() && $form->isValid())
+        {
+
+            if ($form->get('role')->getData() == 'ROLE_SUPER_ADMIN') {
+                $user->setIsActive(1);
+            }
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            $this->addFlash('mensaje', 'Usuario Editado con Exito');
+            return $this->redirectToRoute('update_user', ["id" => $id]);
+        }
+     
+        return $this->render('PlataformaBundle:Plataforma:edit_user.html.twig', ["form" => $form->createView()]);
+    }
+
+    /**
+     * @Route("/direccion/delete/{id}", name="delete_user")
+     */
+    public function deleteAction($id){
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $user = $em->getRepository("PlataformaBundle:Usuarios")->find($id);
+
+        
+        if ($user) {
+            $em->remove($user);
+            $em->flush();
+            $this->addFlash('mensaje', 'Usuario Eliminado con Exito');
+            return $this->redirectToRoute('user_list');
+        }
+        
     }
 }	
  

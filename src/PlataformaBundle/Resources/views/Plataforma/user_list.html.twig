@@ -3,30 +3,63 @@
 {% block body %}
 
 	{{ parent() }}
+	{% for flashMessage in app.session.flashbag.get('mensaje') %}
+		<div class="alert alert-success" role="alert">
+			<div class="container">{{ flashMessage }}</div>
+
+		</div>
+
+	{% endfor %}
 
 	<br>
     <br>
 	   <div class="container">
 	       <div class="col-md-12">
-	           <div class="page-header margin-none">
-	               <h2 class="padding-none">Usuarios</h2>
-	           </div>
+	           <center><div class="page-header margin-none">
+	               <h1 class="padding-none">Usuarios</h1>
+	           </div></center>
+
+	           <div class="row">
+	           		<div class="col-md-6">
+	                    <a href="{{ path('user_registration') }}" class="btn btn-primary btn-sm">
+	                        
+	                            <i class="fa fa-fw fa-plus"></i> Nuevo Usuario
+	                        
+	                    </a>
+	                </div>
+	                <div class="col-md-6">    
+	                    <form method="" action="" class="form-inline" role="search">
+		           	   		
+		           	   		<div class="form-group">
+		           	   			<input type="text" name="query" class="form-control" placeholder="Buscar Usuario" required>
+		           	   		</div>	
+		           	   		<input type="submit" value="Buscar" class="btn btn-default">
+		           	   
+		           	   </form>
+		           	</div>   
+                </div><br>
 
 	           <div class="table-responsive">
+
+	           	   <p>Total de Usuarios: {{ pagination.getTotalItemCount }}</p> 
+
+	           	   
+	           	   <br>	
+
 	               <table class="table table-striped table-hover">
 	                   <thead>
 	                       <tr>
 	                       	   <th>Cantidad</th>		
-	                           <th>Nombre de Usuario</th>
-	                           <th>Email</th>
-	                           <th>Estado</th>
-	                           <th>Tipo de Usuario</th>
+	                           <th>{{ knp_pagination_sortable(pagination, 'Nombre de Usuario', 'e.username') }}</th>
+	                           <th>{{ knp_pagination_sortable(pagination, 'Email', 'e.email') }}</th>
+	                           <th>{{ knp_pagination_sortable(pagination, 'Estado', 'e.is_active') }}</th>
+	                           <th>{{ knp_pagination_sortable(pagination, 'Tipo de Usuario', 'e.role') }}</th>
 	                           <th>Acciones</th>
 	                       </tr>
 	                   </thead>
 	                   <tbody>
 	                   	  {% set counter = 1 %}
-	                      {% for user in users %}
+	                      {% for user in pagination %}
 	                       <tr>
 	                           <td>{{ counter }}</td>
 	                           <td>{{ user.username }}</td>
@@ -48,8 +81,8 @@
 	                           </td>
 	                           <td>
 	                                <a href="#" class="btn btn-sm btn-info">View</a>
-	                                <a href="#" class="btn btn-sm btn-primary">Edit</a>
-	                                <a href="#" class="btn btn-sm btn-danger btn-delete">Delete</a>
+	                                <a href="{{ path('update_user', { id: user.id}) }}" class="btn btn-sm btn-primary">Edit</a>
+	                                <a href="{{ path('delete_user',{ id: user.id}) }}" onclick="confirmDelete()" class="btn btn-sm btn-danger btn-delete">Delete</a>
 	                           </td>
 
 	                       </tr>
@@ -57,9 +90,32 @@
 	                       {% endfor %}
 	                   </tbody>
 	               </table>
+
+	               {# display navigation #}
+				    <div class="navigation">
+				        {{ knp_pagination_render(pagination) }}
+				    </div>
+
 	           </div>
 	       </div>
 	   </div>
+
+<script>
+	
+	function confirmDelete(){
+
+		bootbox.confirm('Esta Seguro de Realizar Esta Accion', function(result){
+
+			if(result == true){
+				document.form.submit();
+			}
+
+		});
+
+	}
+
+</script>
+
 
 
 {% endblock %}
