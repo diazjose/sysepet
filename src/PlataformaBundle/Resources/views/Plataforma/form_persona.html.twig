@@ -1,0 +1,105 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+
+    {{ parent() }}
+
+    {% if id %}
+
+        <div class="container">
+            <div class="col-md-10 col-md-offset-2 well">
+              <h2 class="form-signin-heading">Datos Personales</h2><br> 
+              <div class="form-goup">
+                <label>Nombre y Apellido: </label>
+                <span>{{ nombre }} {{ apellido }}</span>
+              </dvi>
+              <div class="form-goup">
+                <label>DNI: </label>
+                <span>{{ dni }}</span>
+              </dvi>
+              <div class="form-goup">
+                <label>Direccion: </label>
+                <span>{{ direccion }}</span>
+              </dvi>
+            </div>
+          </div>
+
+          <div>
+            <a href="#" data-toggle="modal" data-target="#formAlumno">Cargar Datos de Alumnos</a>
+          </div>
+        
+        
+
+        <div class="modal fade" id="formAlumno" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="formAlumno">Cargar Datos de Alumno</h4>
+              </div>
+              <div class="modal-body">
+              {{ render(controller("PlataformaBundle:Alumno:register", { 'id': id })) }}
+            </div>
+              
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+          <script type="text/javascript">
+
+            $(document).ready(function(){
+
+
+                $(".btn").click(function(){
+
+                    $("#formAlumno").modal('show');
+
+                });
+
+            });
+
+          </script>
+
+      {% else %}     
+
+          <div class="col-md-6 col-md-offset-3">
+
+              {{ form_start(form, { 'attr' : {'class' : 'form-horizontal'} }) }}
+
+
+                <h2 class="form-signin-heading">Registrar Persona</h2><br>
+
+                <div class="form-group">
+                    {{ form_row(form.dni, {'attr' : {'class' : 'form-control', 'placeholder' : 'Dni'} }) }}
+                </div>
+
+                <div class="form-group">
+                  {{ form_row(form.apellido, {'attr' : {'class' : 'form-control', 'placeholder' : 'Ingrese Apellido'} }) }}
+                </div>
+
+                <div class="form-group">
+                  {{ form_row(form.nombre, {'attr' : {'class' : 'form-control', 'placeholder' : 'Ingrese Nombre'} }) }}
+                </div>
+
+                <div class="form-group">
+                   {{ form_row(form.direccion, {'attr' : {'class' : 'form-control', 'placeholder' : 'Direccion'} }) }}
+                </div>
+
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+
+              {{ form_end(form) }}
+
+          </div>
+       {% endif %}   
+
+{% endblock %}
+
+

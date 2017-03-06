@@ -1,0 +1,86 @@
+
+
+    <div class="col-md-6 col-md-offset-3">
+
+        <form action="{{ path('cargar') }}">        
+
+            <div class="form-group">
+            	<label> </label>
+                <input type="hidden"  name="id">
+            </div>
+
+            <div class="form-group">
+                <label>Numero de Legajo </label>
+                <input type="number" class="form-control" placeholder="Nº Legajo" name="numero_legajo">
+            </div>
+
+            <div class="form-group">
+                <label>Edad </label>
+                <input type="number" class="form-control" placeholder="Edad" name="edad">
+            </div>
+
+            <div class="form-group">
+               <label>Fecha de Nacimiento </label>
+                <input type="date" class="form-control" name="fecha_nac">
+            </div>
+
+            <div class="form-group">
+                <label>Lugar de Nacimiento </label>
+                <input type="text" class="form-control" placeholder="Lugar" name="lugar_nac">
+            </div>
+
+             <div class="form-group">
+                <label>Convive con </label>
+                <select name="convive" class="form-control">
+                	<option>Padre y Madre</option>
+                	<option>Madre Solamente</option>
+                	<option>Padre Solamente</option>
+                	<option>Ninguno</option>
+                </select>	
+            </div>
+
+            <div class="form-group">
+                <label>Cantidad de Hermanos </label>
+                <input type="number" class="form-control" placeholder="Cantidad" name="hermanos">
+            </div>
+
+            <div class="form-group">
+                <label>Cantidad de Hermanos en Primaria</label>
+                <input type="number" class="form-control" placeholder="Cantidad" name="primaria">
+            </div>
+
+            <div class="form-group">
+                <label>Escuela de la que Proviene </label>
+                <input type="text" class="form-control" placeholder="Nombre de la Escuela" name="proviene">
+            </div>
+
+            <div class="form-group">
+                <label>Obra Social </label>
+                <input type="text" class="form-control" placeholder="Nombre si Posee" name="obra_social">
+            </div>
+
+            <div class="form-group">
+                <label>Enfermedades Alergicas </label>
+                <input type="text" class="form-control" placeholder="Enfermedades" name="enfer_alergicas">
+            </div>
+
+            <div class="form-group">
+                <label>Presento Certificado de Discapacidad </label>
+                <select name="certificado" class="form-control">
+                	<option>Si</option>
+                	<option>NO</option>
+                </select>	
+            </div>
+
+
+            <div class="form-group">
+                  <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+
+        </form>
+
+    </div>
+
+
+
+   

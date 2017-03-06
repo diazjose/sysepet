@@ -29,3 +29,15 @@ user_registration:
     path:     /direccion/register
     defaults: { _controller: PlataformaBundle:Usuario:register }
 
+cargar_persona:
+    path:     /persona/register
+    defaults: { _controller: PlataformaBundle:Persona:register }
+
+cargar_alumno:
+    path:     /alumno/register
+    defaults: { _controller: PlataformaBundle:Alumno:register }
+
+cargar:
+    path:     /alumno/regis
+    defaults: { _controller: PlataformaBundle:Alumno:alta }
+
