@@ -4,6 +4,7 @@ namespace PlataformaBundle\Controller;
 
 use PlataformaBundle\Form\PersonasType;
 use PlataformaBundle\Entity\Personas;
+use PlataformaBundle\Entity\Alumnos;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -57,35 +58,45 @@ class PersonaController extends Controller
     }
 
     /**
-     * @Route("/persona/buscar", name="buscar_persona" )
+     * @Route("/alumno/buscar", name="buscar_alumno" )
      */
-    public function listuserAction(Request $request)
+    public function listalumnoAction(Request $request)
     {
-        /* 
-     	$em = $this->getDoctrine()->getManager();
-    	$users = $em->getRepository('PlataformaBundle:Usuarios')->findAll();
+        $que = $request->get('query');
 
-        return $this->render('PlataformaBundle:Plataforma:user_list.html.twig', array('users' => $users ));
-        */
-        $query = $request->get('query');
+        if (!empty($que)) {
+            
+            $em = $this->getDoctrine()->getManager();
+            $dql = "select a, p from PlataformaBundle:Personas a
+                    join a.alumno p
+                    where a.dni=:dni";
+            $query = $em->createQuery($dql);
+            $query->setParameter('dni', $que);
+            $user = $query->getResult();        
 
-        if (!empty($query)) {
-            /*
-            $finder = $this->container->get('fos_elastica.finder.app.user');
-            $user = $finder->createPaginatorAdapter($query);
-            */
-            $em = $this->getDoctrine()->getEntityManager();
-            $user = $em->getRepository('PlataformaBundle:Personas')->findByApellido($query);
+            if ($user) {
+                            
+            }
+            else{
+                $dql = "select a, p from PlataformaBundle:Personas a
+                    join a.alumno p
+                    where a.apellido=:apellido";
+                $query = $em->createQuery($dql);
+                $query->setParameter('apellido', $que);
+                $user = $query->getResult();        
+                  
+            }
+
+            $paginator = $this->get('knp_paginator');
+            $pagination = $paginator->paginate($user, $request->query->getInt('page', 1), 5);
+                                   
         }
         else{
-            $em = $this->getDoctrine()->getEntityManager();
-            $dql = "SELECT e FROM PlataformaBundle:Personas e";
-            $user = $em->createQuery($dql);    
+            $pagination = '';
         }
         
  
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($user, $request->query->getInt('page', 1), 5);
+        
  
         return $this->render('PlataformaBundle:Plataforma:personas_listado.html.twig',
                 array('pagination' => $pagination));
@@ -97,7 +108,7 @@ class PersonaController extends Controller
      */
     public function deleteAction($id){
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository("PlataformaBundle:Personas")->find($id);
 
         
@@ -109,6 +120,8 @@ class PersonaController extends Controller
         }
 
     }
+
+    
 
 
 }	

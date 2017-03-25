@@ -1,3 +1,145 @@
 {% extends 'layout.html.twig' %}
 
-Usuario cargado con exito
+{% block body %}
+
+	{{ parent() }}
+
+
+<div class="container">	
+  <div class="col-md-12">
+
+  	<center><div class="page-header margin-none">
+	    <h1 class="padding-none">Alumno: {{ alumno.persona.nombre }} {{ alumno.persona.apellido }} </h1>
+	</div></center>
+
+	<br>
+	<div class="panel panel-primary">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">Datos Personales</h3>
+	  </div>
+	  <div class="panel-body">
+	    
+	        <table class="table table-striped table-hover">
+	            <thead>
+	                <tr>
+	               	   <th>N Legajo</th>
+	               	   <th>DNI</th>
+	               	   <th>Edad</th>
+	               	   <th>Fecha Nac</th>
+	               	   <th>Lugar de Nac</th>
+	               	   <th>Direccion</th>
+	               	   <th>Esc. que Proviene</th>	               	   
+	               	   <th>Accion</th>	               	   
+	                </tr>
+	            </thead>
+	            <tbody>
+	                <tr>
+	                    <td>{{ alumno.numeroLegajo }}</td>
+	                    <td>{{ alumno.persona.dni }}</td>
+	                    <td>{{ alumno.edad }}</td>
+	                    <td>{{ alumno.fechaNac }}</td>
+	                    <td>{{ alumno.lugarNac }}</td>
+	                    <td>{{ alumno.persona.direccion }}</td>
+	                    <td>{{ alumno.escProviene }}</td>
+	                    <td> <a href="{{ path('update_alumno', { id: alumno.id}) }}" class="btn btn-sm btn-info">Edit</a></td>
+	                </tr>    
+	            </tbody>
+	        </table>
+      </div>
+    </div>
+	
+	<div class="panel panel-primary">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">Datos Familiares</h3>
+	  </div>
+	  <div class="panel-body">
+	  		
+	  		<table class="table table-striped table-hover">
+	            <thead>
+	                <tr>	               	   
+	               	   <th>Vive con</th>
+	               	   <th>Cant. de Hermanos</th>
+	               	   <th>Cant. de hermanos en primeria</th>
+	               	   <th>Accion</th>
+	               	</tr>
+	            </thead>
+	            <tbody>
+	                <tr>
+	                    <td>{{ alumno.convive }}</td>
+	                    <td>{{ alumno.hermanos }}</td>
+	                    <td>{{ alumno.primaria }}</td>
+	                    <td> <a href="{{ path('update_alumno', { id: alumno.id}) }}" class="btn btn-sm btn-info">Edit</a></td>
+	                </tr>
+	            </tbody>
+	        </table>
+
+	  </div>
+	</div>
+
+	<div class="panel panel-primary">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">Datos de Emergencia</h3>
+	  </div>
+	  <div class="panel-body">
+	    	<table class="table table-striped table-hover">
+	            <thead>
+	                <tr>	               	   
+	               	   <th>Alergico a </th>
+	               	   <th>Alguna Discapacidad</th>
+	               	   <th>Obra Social</th>
+	               	   <th>Accion</th>
+	               	</tr>
+	            </thead>
+	            <tbody>
+	                <tr>
+	                    <td>{{ alumno.enferAlergicas }}</td>
+	                    <td>{{ alumno.certDiscapacidad }}</td>
+	                    <td>{{ alumno.obraSocial }}</td>
+	                    <td> <a href="{{ path('update_alumno', { id: alumno.id}) }}" class="btn btn-sm btn-info	">Edit</a></td>
+	                </tr>
+	            </tbody>
+	        </table>
+	  </div>
+	</div>
+
+	<div class="panel panel-primary">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">Datos del Tutor</h3>
+	  </div>
+	  <div class="panel-body">
+	  	{% if tualumno != null %}
+	    	<table class="table table-striped table-hover">
+	            <thead>
+	                <tr>	               	   
+	               	   <th>Apellido </th>
+	               	   <th>Nombre</th>
+	               	   <th>Parentesco</th>
+	               	   <th>telefono</th>
+	               	   <th>Lugar de Trabajo</th>
+	               	   <th>Accion</th>
+	               	</tr>
+	            </thead>
+	            <tbody>
+	                <tr>
+	                    <td>{{ tualumno.tutor.persona.apellido }}</td>
+	                    <td>{{ tualumno.tutor.persona.nombre }}</td>
+	                    <td>{{ tualumno.parentesco }}</td>
+	                    <td>{{ tualumno.tutor.telefono }}</td>
+	                    <td>{{ tualumno.tutor.lugarTrabajo }}</td>
+	                    <td> <a href="{{ path('update_alumno', { id: tualumno.tutor.id}) }}" class="btn btn-sm btn-info	">Edit</a></td>
+	                </tr>
+	            </tbody>
+	        </table>
+
+	       {% else %}
+
+	       		<center><h3><a href="{{ path('alta_tutor',{ id: alumno.id }) }}">Registrar Tutor >> </a></h3></center> 
+
+	       {% endif %} 
+	  </div>
+	</div>
+
+  </div>
+</div>
+
+{% endblock %}

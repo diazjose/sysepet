@@ -1,0 +1,62 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+
+    {{ parent() }}
+
+    <div class="col-md-6 col-md-offset-3">
+
+        <h2 class="form-signin-heading">Registrar Tutor</h2><br>
+        <form action="{{ path('alta_tutor', {id: id}) }}">        
+
+            <div class="form-group">
+            	<label>Nombre </label>
+                <input type="text" name="nombre" class="form-control" placeholder="Nombre">
+            </div> 
+
+            <div class="form-group">
+                <label>Apellido </label>
+                <input type="text" name="apellido" class="form-control" placeholder="Apellido">
+            </div>
+
+            <div class="form-group">
+                <label>DNI </label>
+                <input type="text" name="dni" class="form-control" placeholder="DNI">
+            </div>
+
+            <div class="form-group">
+                <label>Direccion </label>
+                <input type="text" name="direccion" class="form-control" placeholder="Direccion">
+            </div>
+
+            <div class="form-group">
+                <label>Telefono </label>
+                <input type="text" name="telefono" class="form-control" placeholder="telefono">
+            </div>
+
+            <div class="form-group">
+                <label>Lugar de Trabajo </label>
+                <input type="text" name="lugar_trabajo" class="form-control" placeholder="Lugar de Trabajo">
+            </div>
+
+            <div class="form-group">
+                <label>Posee Plan Social </label>
+                <input type="text" name="plan_social" class="form-control" placeholder="nombre del plan">
+            </div>
+
+            <div class="form-group">
+                <label>Parentesco </label>
+                <input type="text" name="parentesco" class="form-control" placeholder="nombre del plan">
+            </div>
+
+            
+            <div class="form-group">
+                  <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+
+        </form>
+
+    </div>
+
+
+{% endblock  %}
