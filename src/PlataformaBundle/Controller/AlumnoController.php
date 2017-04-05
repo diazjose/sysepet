@@ -6,6 +6,7 @@ use PlataformaBundle\Entity\Alumnos;
 use PlataformaBundle\Entity\Personas;
 use PlataformaBundle\Entity\TutorAlumno;
 use PlataformaBundle\Entity\Tutor;
+use PlataformaBundle\Entity\Inscripciones;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -177,6 +178,56 @@ class AlumnoController extends Controller
         
             
         return $this->render('PlataformaBundle:Plataforma:form_tutor.html.twig', ['id' => $id ]);
+
+    }
+
+    /**
+     * @Route("/alumno/inscribir/{id}", name="inscribir_alumno")
+     */       
+    public function iscribiralumnoAction(Request $request, $id){
+
+        if ($request->get('curso')) {
+            
+            $em = $this->getDoctrine()->getManager();
+            $alumno = $em->getRepository('PlataformaBundle:Alumnos')->find($id);
+                        
+            $inscripcion = new Inscripciones();
+
+            $inscripcion->setCurso($request->get('curso'));
+            $inscripcion->setDivision($request->get('division'));
+            $inscripcion->setTurno($request->get('turno'));
+            $inscripcion->setEspecialidad($request->get('especialidad'));
+            $inscripcion->setCantMateAdeuda($request->get('cant_mate_adeuda'));
+            
+            $fecha = date('Y-m-d');
+            $anio = date('Y');    
+
+            $inscripcion->setFechaInscripcion($fecha);
+            $inscripcion->setAnio($anio);
+
+            $inscribir = $em->getRepository('PlataformaBundle:Inscripciones')->findByAnio($anio);
+
+            if ($inscribir) {
+                
+            }
+            else{
+                $inscripcion->setAlumno($alumno);
+                
+                $em->persist($inscripcion);
+                $em->flush();     
+            }
+
+            
+
+            $tutoralumno = $em->getRepository("PlataformaBundle:TutorAlumno")->findOneByAlumno($alumno);
+        
+            return $this->render('PlataformaBundle:Plataforma:msj.html.twig', ['alumno' => $alumno, 'tualumno' => $tutoralumno ]);
+
+        }
+
+        
+            
+        return $this->render('PlataformaBundle:Plataforma:inscribir_alumno.html.twig', ['id' => $id ]);
 
     }
 

@@ -4,6 +4,7 @@ namespace PlataformaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use EM\MyBundle\Entity\Personas;
+use EM\MyBundle\Entity\Inscripciones;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
@@ -33,9 +34,9 @@ class Alumnos
     private $persona;
 
     /**
-     * @ORM\OneToOne(targetEntity="Inscripciones", mappedBy="alumno")
+     * @ORM\OneToMany(targetEntity="Inscripciones", mappedBy="alumno")
      */
-    private $inscripcion;
+    private $inscripciones;
 
 
     /**
@@ -114,6 +115,11 @@ class Alumnos
      * @ORM\Column(name="esc_proviene", type="string", length=255)
      */
     private $escProviene;
+
+
+    public function __construct() {
+        $this->inscripciones = new ArrayCollection();
+    }
 
 
     /**
@@ -415,26 +421,50 @@ class Alumnos
     }
 
     /**
-     * Set inscripcion
+     * Set inscripciones
      *
-     * @param \PlataformaBundle\Entity\Inscripciones $inscripcion
+     * @param \PlataformaBundle\Entity\Inscripciones $inscripciones
      *
      * @return Alumnos
      */
-    public function setInscripcion(\PlataformaBundle\Entity\Inscripciones $inscripcion = null)
+    public function setInscripciones(\PlataformaBundle\Entity\Inscripciones $inscripciones = null)
     {
-        $this->inscripcion = $inscripcion;
+        $this->inscripciones = $inscripciones;
 
         return $this;
     }
 
     /**
-     * Get inscripcion
+     * Get inscripciones
      *
      * @return \PlataformaBundle\Entity\Inscripciones
      */
-    public function getInscripcion()
+    public function getInscripciones()
     {
-        return $this->inscripcion;
+        return $this->inscripciones;
+    }
+
+    /**
+     * Add inscripcione
+     *
+     * @param \PlataformaBundle\Entity\Inscripciones $inscripcione
+     *
+     * @return Alumnos
+     */
+    public function addInscripcione(\PlataformaBundle\Entity\Inscripciones $inscripcione)
+    {
+        $this->inscripciones[] = $inscripcione;
+
+        return $this;
+    }
+
+    /**
+     * Remove inscripcione
+     *
+     * @param \PlataformaBundle\Entity\Inscripciones $inscripcione
+     */
+    public function removeInscripcione(\PlataformaBundle\Entity\Inscripciones $inscripcione)
+    {
+        $this->inscripciones->removeElement($inscripcione);
     }
 }

@@ -24,9 +24,10 @@ class Inscripciones
     private $id;
 
     /**
-     * 
-     * @ORM\OneToOne(targetEntity="Alumnos", inversedBy="inscripcion")
+    /**
+     * @ORM\ManyToOne(targetEntity="Alumnos", inversedBy="inscripciones")
      * @ORM\JoinColumn(name="alumno_id", referencedColumnName="id")
+     * 
      */
     private $alumno;
 
@@ -66,16 +67,16 @@ class Inscripciones
     private $cantMateAdeuda;
 
     /**
-     * @var \DateTime
+     * @var string
      *
-     * @ORM\Column(name="fecha_inscripcion", type="date")
+     * @ORM\Column(name="fecha_inscripcion", type="string", length=20)
      */
     private $fechaInscripcion;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="anio", type="string", length=255)
+     * @ORM\Column(name="anio", type="string", length=20)
      */
     private $anio;
 
@@ -227,7 +228,7 @@ class Inscripciones
     /**
      * Get fechaInscripcion
      *
-     * @return \DateTime
+     * @return \Date
      */
     public function getFechaInscripcion()
     {

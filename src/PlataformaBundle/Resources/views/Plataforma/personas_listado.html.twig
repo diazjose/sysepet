@@ -20,6 +20,14 @@
 	               <h1 class="padding-none">Alumnos</h1>
 	           </div></center>
 
+	           <div class="col-md-6">
+	                    <a href="{{ path('cargar_alumno') }}" class="btn btn-primary btn-sm">
+	                        
+	                            <i class="fa fa-fw fa-plus"></i> Nuevo Alumno
+	                        
+	                    </a>
+	           </div>
+
 	           <div class="row">
 	           		
 	                <div class="col-md-6">    
@@ -66,6 +74,7 @@
 		                                <a href="{{ path('view_alumno', { id: user.alumno.id}) }}" class="btn btn-sm btn-info">View</a>
 		                                <a href="{{ path('update_user', { id: user.id}) }}" class="btn btn-sm btn-primary">Edit</a>
 		                                <a href="{{ path('eliminar_alumno',{ id: user.alumno.id}) }}" onclick="confirmDelete()" class="btn btn-sm btn-danger btn-delete">Delete</a>
+		                                <a href="{{ path('inscribir_alumno',{ id: user.alumno.id}) }}"  class="btn btn-sm btn-danger btn-delete">Delete</a>
 		                           </td>
 
 		                       </tr>
