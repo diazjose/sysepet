@@ -41,3 +41,10 @@ cargar:
     path:     /alumno/regis
     defaults: { _controller: PlataformaBundle:Alumno:alta }
 
+view_config:
+    path: /config/curso
+    defaults: { _controller: PlataformaBundle:Config:view}    
+
+view_inscripcion:
+    path: /config/preinscripcion
+    defaults: { _controller: PlataformaBundle:Config:viewPreinscripcion}

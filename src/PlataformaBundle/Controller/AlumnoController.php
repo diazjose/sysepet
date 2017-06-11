@@ -7,6 +7,7 @@ use PlataformaBundle\Entity\Personas;
 use PlataformaBundle\Entity\TutorAlumno;
 use PlataformaBundle\Entity\Tutor;
 use PlataformaBundle\Entity\Inscripciones;
+use PlataformaBundle\Entity\Cinfig_curso;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

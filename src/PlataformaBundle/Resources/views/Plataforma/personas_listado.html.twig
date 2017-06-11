@@ -45,14 +45,14 @@
                 {% if pagination != '' %}
 
 		           <div class="table-responsive">
-
+		           	
 		           	   <p>Total de Usuarios: {{ pagination.getTotalItemCount }}</p> 
 
 		           	   
 		           	   <br>	
 
 		               <table class="table table-striped table-hover">
-		                   <thead>
+		                   <table-hoverad>
 		                       <tr>
 		                       	   <th>{{ knp_pagination_sortable(pagination, 'N Legajo', 'e.alumno.numeroLegajo') }}</th>                      		
 		                       	   <th>{{ knp_pagination_sortable(pagination, 'DNI', 'e.dni') }}</th>

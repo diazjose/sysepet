@@ -152,6 +152,7 @@
 	               	   <th>Turno</th>
 	               	   <th>Especialidad</th>
 	               	   <th>Cant. Previas</th>
+	               	   <th>Ciclo Lectivo</th>
 	               	   <th>Fecha de Inscripcion</th>
 	               	   <th>Accion</th>
 	               	</tr>
@@ -166,8 +167,9 @@
 	                    <td>{{ inscripciones.turno }}</td>
 	                    <td>{{ inscripciones.especialidad }}</td>
 	                    <td>{{ inscripciones.cantMateAdeuda }}</td>
-	                    <td>{{ inscripciones.fechaInscripcion }}</td>
-	                    <td> <a href="{{ path('update_alumno', { id: tualumno.tutor.id}) }}" class="btn btn-sm btn-info	">Edit</a></td>
+	                    <td>{{ inscripciones.anio }}</td>
+	                    <td>{{ inscripciones.fechaInscripcion| date("d/m/Y") }}</td>
+   	                    <td> <a href="{{ path('update_alumno', { id: tualumno.tutor.id}) }}" class="btn btn-sm btn-info	">Edit</a></td>
 	                </tr>
 	            </tbody>
 	        

@@ -53,26 +53,26 @@
         			           	<li><a href="#">Visualizar PreInscriptos</a></li>
         			           	<li><a href="#">Visualizar Inscriptos</a></li>
 
-        	        			<li><a href="">Configurar Pre-Inscripcion</a></li>
-        	        			<li><a href="">Configurar Inscripcion</a></li>
+        	        			<li><a href="{{ path('view_inscripcion') }}">Configurar Pre-Inscripcion</a></li>
+        	        			<li><a href="{{ path('view_config') }}">Configurar Inscripcion</a></li>
 
         	        		  </ul>
         			        </li>
         				</ul>
 
-        				<ul class="nav navbar-nav navbar-right">
-        					<li class="dropdown">
-        			          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Alumnos</a>
-                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        			          <ul class="dropdown-menu">
-        			          	<li><a href="{{ path('cargar_alumno') }}">Añadir Alumno</a></li>
-        			            <li><a href="{{ path('buscar_alumno') }}">Buscar Alumno</a></li>
-        	        		  </ul>
+                
+                  <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                        {% if is_granted('ROLE_SUPER_ADMIN') %}
+                            <a href="{{ path('buscar_alumno') }}" >Alumno</a>
+                        {% else %}
+                            <a href="#" >Alumno</a>
                         {% endif %}
-        			    </li>
+                        </li>
+                   </ul>
+                 
 
-        				</ul>
-
+        				
         				<ul class="nav navbar-nav navbar-right">
         					<li class="dropdown">
         			          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profesores</a>
